@@ -25,11 +25,40 @@ double calcularEnergiaCinetica(Orion nave) {
     return energia; //devuelve el resultado al programa principal
 }
 
-// apartado C: Distancia hasta el punto de equilibrio gravitatorio
+// apartado C: calculamos la distancia hasta el punto de equilibrio gravitatorio por las masas 
+// y el calculo del trabajo externo por unidad de masa
 double calcularDistanciaEquilibrio() {
 
     double distancia;
-    distancia = DISTANCIA_TIERRA_LUNA /
-                (1 + sqrt(MASA_LUNA / MASA_TIERRA));
+    distancia = DISTANCIA_TIERRA_LUNA / 
+                (1 + sqrt(MASA_LUNA / MASA_TIERRA)); 
     return distancia;
+}
+
+double calcularTrabajoExterno(Orion nave) {
+
+    double distanciaEquilibrio;
+    double distanciaInicial;
+    double potencialInicial;
+    double potencialFinal;
+    double energiaCineticaInicial;
+    double trabajoExterno;
+
+    distanciaEquilibrio = calcularDistanciaEquilibrio();
+
+    distanciaInicial = RADIO_TIERRA + nave.altura;
+
+    potencialInicial = // energia potencial gravitatoria por unidad de masa al comenzar
+        -(G * MASA_TIERRA / distanciaInicial) // atraccion gravitatoria de la tierra
+        -(G * MASA_LUNA / (DISTANCIA_TIERRA_LUNA - distanciaInicial)); // atraccion gravitatoria de la luna
+
+    potencialFinal = // energia potencial gravitatoria por unidad de masa en el punto de equilibrio
+        -(G * MASA_TIERRA / distanciaEquilibrio)
+        -(G * MASA_LUNA / (DISTANCIA_TIERRA_LUNA - distanciaEquilibrio));
+
+    energiaCineticaInicial = 0.5 * nave.velocidad * nave.velocidad;
+
+    trabajoExterno = potencialFinal - potencialInicial - energiaCineticaInicial;
+    // en este ultimo, se supone que orion llega al punto de equilibrio con velodiad final cero
+    return trabajoExterno;
 }
