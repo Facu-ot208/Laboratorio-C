@@ -1,9 +1,9 @@
 # Laboratorio-C
 ## Integrantes y Comisión:
-  Camnasio, Avril
-  Muñoa Gimenez, Ibel Eugenia
-  Muzzupappa, Nahir Helena
-  Otero, Nelson Facundo
+  - Camnasio, Avril
+  - Muñoa Gimenez, Ibel Eugenia
+  - Muzzupappa, Nahir Helena
+  - Otero, Nelson Facundo
 
 ## Escenario **Artemis** asignado:
   Situación - Problema 3: Inyección Translunar — TLI e Inercia en Trayectoria Libre (1.ª Ley de Newton y Energía)
