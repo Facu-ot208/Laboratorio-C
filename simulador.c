@@ -24,3 +24,12 @@ double calcularEnergiaCinetica(Orion nave) {
 
     return energia; //devuelve el resultado al programa principal
 }
+
+// apartado C: Distancia hasta el punto de equilibrio gravitatorio
+double calcularDistanciaEquilibrio() {
+
+    double distancia;
+    distancia = DISTANCIA_TIERRA_LUNA /
+                (1 + sqrt(MASA_LUNA / MASA_TIERRA));
+    return distancia;
+}
