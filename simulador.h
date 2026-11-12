@@ -6,6 +6,7 @@
 #define MASA_TIERRA 5.972e24
 #define MASA_LUNA 7.342e22
 #define RADIO_TIERRA 6371000.0
+#define DISTANCIA_TIERRA_LUNA 384000000.0
 
 // estructura de datos de la nave orion
 typedef struct {
