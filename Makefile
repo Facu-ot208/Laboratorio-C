@@ -2,7 +2,7 @@ CC      = gcc
 CFLAGS  = -Wall -Wextra -std=c99 -g
 LDFLAGS = -lm
 TARGET  = artemis
-SRCS    = main.c simulador.c validaciones.c
+SRCS    = main.c simulador.c validaciones.c dibujo.c
 OBJS    = $(SRCS:.c=.o)
 
 all: $(TARGET)
