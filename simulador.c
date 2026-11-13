@@ -13,6 +13,10 @@ void mostrarInercia() {
     printf("La nave conserva su movimiento debido a la inercia.\n");
     printf("Sin embargo, la gravedad terrestre sigue actuando sobre Orion.\n");
     printf("Esta fuerza gravitatoria modifica progresivamente su velocidad y direccion.\n");
+    printf("Mientras Orion se aleja, la gravedad terrestre lo frena (desacelera),\n");
+    printf("porque la fuerza apunta hacia la Tierra, opuesta al movimiento.\n");
+    printf("Segun la 1.a Ley de Newton, sin esa fuerza la nave seguiria con\n");
+    printf("velocidad constante en linea recta.\n");
 }
 
 // apartado B: calculo de energia cinetica
