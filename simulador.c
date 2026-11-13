@@ -106,12 +106,15 @@ void mostrarReporteFinal(const Orion *nave, double energiaCinetica,
     printf("===================\n");
 }
 
-// carga los datos iniciales de la nave. distancia = distancia al CENTRO de la Tierra
+// carga los datos iniciales de la nave en la estructura (se recibe por puntero)
+// distancia = distancia al CENTRO de la Tierra = radio terrestre + altura
 void inicializarNave(Orion *nave, double masa, double velocidad, double altura) {
+    double distanciaAlCentro = RADIO_TIERRA + altura;
+
     nave->masa = masa;
     nave->velocidad = velocidad;
     nave->altura = altura;
-    nave->distancia = RADIO_TIERRA + altura;
+    nave->distancia = distanciaAlCentro;
 }
 
 // aceleracion sobre la nave (positiva = hacia la Luna) a distancia r del centro terrestre
