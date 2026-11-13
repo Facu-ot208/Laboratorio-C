@@ -30,12 +30,13 @@ static int leerLinea(char *buf, int tam) {
     buf[strcspn(buf, "\n")] = '\0';
     return 1;
 }
-// Permite ingresar un numero decimal
+// Pide un numero decimal y repite hasta que sea valido.
+// Rechaza: letras, texto sobrante (ej: 12abc), nan, inf y numeros demasiado grandes.
+// Acepta coma o punto como separador decimal.
 double ingresarDouble(const char *mensaje) {
     char linea[TAM_LINEA];
     char *fin;
     double valor;
-
      while (1) {
         printf("%s", mensaje);
         if (!leerLinea(linea, TAM_LINEA)) {
@@ -64,8 +65,10 @@ double ingresarDouble(const char *mensaje) {
     }
 }
 
-// Permite ingresar solamente valores positivos
-double ingresarPositivo(const char *mensaje)) {
+// Permite ingresar solamente valores positivos.
+// Pide un decimal estrictamente mayor que cero (el cero tambien se rechaza).
+// Util para masa, velocidad o altura, donde 0 no tiene sentido fisico.
+double ingresarPositivo(const char *mensaje) {
     double valor;
     while(1) {
         valor = ingresarDouble(mensaje);
@@ -74,6 +77,9 @@ double ingresarPositivo(const char *mensaje)) {
     }
 }
 
+//Pide un decimal dentro del rango [min, max], ambos inclusive.
+// Reutiliza ingresarDouble, que ya garantiza que es un numero valido.
+// Sirve, por ejemplo, para evitar alturas que provoquen division por cero en los calculos fisicos.
 double ingresarDoubleRango(const char *mensaje, double min, double max) {
     double valor;
     while (1) {
@@ -83,6 +89,9 @@ double ingresarDoubleRango(const char *mensaje, double min, double max) {
     }
 }
 
+// Pide un entero dentro del rango [min, max]. Se usa principalmente en los menus.
+// No acepta decimales (3,5) ni texto mezclado (3abc).
+// El (int) final es seguro porque min y max son int, asi que el valor ya esta en rango.
 int ingresarEntero(const char *mensaje, int min, int max) {
     char linea[TAM_LINEA];
     char *fin;
@@ -113,7 +122,8 @@ int ingresarEntero(const char *mensaje, int min, int max) {
     }
 }
 
-// Devuelve el caracter (en mayuscula) si esta en 'validas' (ej: "SN")
+// Pide un unico caracter que pertenezca a 'validas' (ej: "SN") y lo devuelve en mayuscula.
+// Rechaza lineas vacias o de mas de un caracter.
 char ingresarOpcion(const char *mensaje, const char *validas) {
     char linea[TAM_LINEA];
     char c;
