@@ -65,17 +65,50 @@ double ingresarDouble(const char *mensaje) {
 }
 
 // Permite ingresar solamente valores positivos
-double ingresarPositivo(char mensaje[]) {
+double ingresarPositivo(const char *mensaje)) {
     double valor;
-
-    do {
+    while(1) {
         valor = ingresarDouble(mensaje);
+        if (valor > 0) return valor; // Validación para asegurar que el valor sea positivo
+        mostrarAdvertencia("El valor debe ser mayor que cero.");
+    }
+}
 
-        if (valor <= 0) { // Validación para asegurar que el valor sea positivo
-            printf("Error: el valor debe ser mayor que cero.\n");
+double ingresarDoubleRango(const char *mensaje, double min, double max) {
+    double valor;
+    while (1) {
+        valor = ingresarDouble(mensaje);
+        if (valor >= min && valor <= max) return valor;
+        printf("  [!] El valor debe estar entre %.2f y %.2f.\n", min, max);
+    }
+}
+
+int ingresarEntero(const char *mensaje, int min, int max) {
+    char linea[TAM_LINEA];
+    char *fin;
+    long valor;
+
+    while (1) {
+        printf("%s", mensaje);
+        if (!leerLinea(linea, TAM_LINEA)) {
+            mostrarAdvertencia("Entrada demasiado larga.");
+            continue;
         }
-
-    } while (valor <= 0);
-
-    return valor;
+        errno = 0;
+        valor = strtol(linea, &fin, 10);
+        if (fin == linea) {
+            mostrarAdvertencia("Debe ingresar un numero entero.");
+            continue;
+        }
+        while (isspace((unsigned char)*fin)) fin++;
+        if (*fin != '\0' || errno == ERANGE) {
+            mostrarAdvertencia("Entero invalido.");
+            continue;
+        }
+        if (valor < min || valor > max) {
+            printf("  [!] Ingrese un valor entre %d y %d.\n", min, max);
+            continue;
+        }
+        return (int)valor;
+    }
 }
