@@ -21,5 +21,7 @@ void mostrarInercia();
 double calcularEnergiaCinetica(Orion nave);
 double calcularTrabajoExterno(Orion nave);
 void mostrarAnalisisCombustible(void);
+void mostrarReporteFinal(const Orion *nave, double energiaCinetica,
+                         double trabajoExterno);
 
 #endif
