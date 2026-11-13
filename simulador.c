@@ -105,4 +105,69 @@ void mostrarReporteFinal(const Orion *nave, double energiaCinetica,
         printf("Resultado: NO llega. Faltan %.3e J/kg.\n", trabajoExterno);
     printf("===================\n");
 }
-    
+
+// carga los datos iniciales de la nave. distancia = distancia al CENTRO de la Tierra
+void inicializarNave(Orion *nave, double masa, double velocidad, double altura) {
+    nave->masa = masa;
+    nave->velocidad = velocidad;
+    nave->altura = altura;
+    nave->distancia = RADIO_TIERRA + altura;
+}
+
+// aceleracion sobre la nave (positiva = hacia la Luna) a distancia r del centro terrestre
+static double aceleracion(double r) {
+    return -G * MASA_TIERRA / (r * r)
+           + G * MASA_LUNA / ((DISTANCIA_TIERRA_LUNA - r) * (DISTANCIA_TIERRA_LUNA - r));
+}
+
+// avanza la nave 'segundos' con los motores apagados (Verlet de velocidad).
+// Modifica la nave por puntero y devuelve como termino el turno.
+EstadoVuelo avanzarTurno(Orion *nave, double segundos) {
+    double rEq = calcularDistanciaEquilibrio();
+    double restante = segundos;
+
+    while (restante > 0.0) {
+        double dt = (restante < PASO_INTEGRACION) ? restante : PASO_INTEGRACION;
+        double a0 = aceleracion(nave->distancia);
+
+        nave->distancia += nave->velocidad * dt + 0.5 * a0 * dt * dt;
+        nave->velocidad += 0.5 * (a0 + aceleracion(nave->distancia)) * dt;
+        restante -= dt;
+
+        if (nave->distancia >= rEq)            return LLEGA_EQUILIBRIO;
+        if (nave->distancia <= RADIO_TIERRA)   return CHOCA_TIERRA;
+        if (nave->velocidad <= 0.0)            return REGRESA_A_TIERRA;
+    }
+    nave->altura = nave->distancia - RADIO_TIERRA;
+    return EN_VUELO;
+}
+
+void mostrarResultadoSimulacion(EstadoVuelo estado, int turnos) {
+    printf("\n--- RESULTADO DE LA SIMULACION (%d turnos) ---\n", turnos);
+    switch (estado) {
+        case LLEGA_EQUILIBRIO:
+            printf("Orion llego al punto de equilibrio gravitatorio Tierra-Luna.\n");
+            printf("Desde ahi la Luna domina y la nave cae hacia ella.\n");
+            break;
+        case REGRESA_A_TIERRA:
+            printf("La velocidad llego a cero antes del punto de equilibrio.\n");
+            printf("Orion se detiene y la gravedad terrestre la hace volver.\n");
+            break;
+        case CHOCA_TIERRA:
+            printf("Orion cayo a la Tierra (distancia menor al radio terrestre).\n");
+            break;
+        default:
+            printf("La simulacion termino con la nave todavia en vuelo.\n");
+    }
+}
+
+// tabla con la velocidad y la distancia al final de cada turno (usa arreglos)
+void mostrarHistorial(const double velocidades[], const double distancias[],
+                      int cantidad) {
+    int i;
+    printf("\n--- HISTORIAL POR TURNO ---\n");
+    printf(" Turno | Velocidad [km/s] | Distancia a la Tierra [km]\n");
+    for (i = 0; i < cantidad; i++)
+        printf(" %5d | %16.3f | %14.0f\n", i + 1, velocidades[i] / 1000.0,
+               distancias[i] / 1000.0);
+}
