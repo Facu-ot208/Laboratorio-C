@@ -20,6 +20,6 @@ typedef struct {
 void mostrarInercia();
 double calcularEnergiaCinetica(Orion nave);
 double calcularTrabajoExterno(Orion nave);
-void mostrarAnalisisCombustible();
+void mostrarAnalisisCombustible(void);
 
 #endif
