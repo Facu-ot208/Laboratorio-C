@@ -112,3 +112,20 @@ int ingresarEntero(const char *mensaje, int min, int max) {
         return (int)valor;
     }
 }
+
+// Devuelve el caracter (en mayuscula) si esta en 'validas' (ej: "SN")
+char ingresarOpcion(const char *mensaje, const char *validas) {
+    char linea[TAM_LINEA];
+    char c;
+
+    while (1) {
+        printf("%s", mensaje);
+        if (!leerLinea(linea, TAM_LINEA) || strlen(linea) != 1) {
+            mostrarAdvertencia("Ingrese un unico caracter.");
+            continue;
+        }
+        c = (char)toupper((unsigned char)linea[0]);
+        if (strchr(validas, c) != NULL) return c;
+        printf("  [!] Opcion invalida. Opciones: %s\n", validas);
+    }
+}
