@@ -74,8 +74,8 @@ void mostrarAnalisisCombustible(void) {
     printf("energia (delta-v alto), y por lo tanto mucho combustible.\n");
     printf("Volver implica salir del pozo lunar, que es poco profundo, y luego\n");
     printf("la Tierra ayuda atrayendo a la nave: hace falta poca energia.\n\n");
-    printf("Ademas, el combustible gastado en la ida tambien debe ser\n");
-    printf("impulsado, lo que obliga a llevar aun mas combustible (ecuacion\n");
+    printf("Ademas, el combustible que todavia no se uso tambien hay que\n");
+    printf("acelerarlo junto con la nave, y por eso hace falta mucho mas (ecuacion\n");
     printf("del cohete). Por eso la ida requiere una masa de combustible\n");
     printf("significativamente mayor que el regreso.\n");
 }
