@@ -65,7 +65,7 @@ double ingresarDouble(const char *mensaje) {
     }
 }
 
-// Permite ingresar solamente valores positivos.
+
 // Pide un decimal estrictamente mayor que cero (el cero tambien se rechaza).
 // Util para masa, velocidad o altura, donde 0 no tiene sentido fisico.
 double ingresarPositivo(const char *mensaje) {
