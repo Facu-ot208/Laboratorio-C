@@ -16,6 +16,23 @@ typedef struct {
     double altura;
 } Orion;
 
+// valores del enunciado del Problema 3 (TLI)
+#define MASA_ORION_ENUNCIADO 26000.0
+#define VELOCIDAD_TLI_ENUNCIADO 10900.0
+#define ALTURA_LEO_ENUNCIADO 192000.0
+
+// limites de la simulacion por turnos
+#define MAX_TURNOS 200
+#define PASO_INTEGRACION 10.0   // segundos por subpaso numerico
+
+// estado en el que queda la nave luego de cada turno
+typedef enum {
+    EN_VUELO,
+    LLEGA_EQUILIBRIO,
+    REGRESA_A_TIERRA,
+    CHOCA_TIERRA
+} EstadoVuelo;
+
 // Prototipos de las funciones
 void mostrarInercia();
 double calcularEnergiaCinetica(Orion nave);
