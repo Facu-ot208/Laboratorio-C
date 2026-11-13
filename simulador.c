@@ -80,4 +80,25 @@ void mostrarAnalisisCombustible(void) {
     printf("significativamente mayor que el regreso.\n");
 }
 
+// reporte final: resume los datos y el resultado de la mision
+void mostrarReporteFinal(const Orion *nave, double energiaCinetica,
+                         double trabajoExterno) {
+    double vEscape = sqrt(2.0 * G * MASA_TIERRA / (RADIO_TIERRA + nave->altura));
+
+    printf("\n======== REPORTE FINAL ========\n");
+    printf("Masa de la nave:        %.1f kg \n", nave->masa);
+    printf("Velocidad de inyeccion: %.1f m/s \n", nave->velocidad);
+    printf("Altura de la orbita:    %.1f m \n", nave->altura);
+    printf("Energia cinetica:       %.3e J \n", energiaCinetica);
+    printf("Trabajo extra minimo:   %.3e J/kg \n", trabajoExterno);
+    printf("Velocidad de escape:    %.1f m/s \n", vEscape);
+
+    if (nave->velocidad >= vEscape)
+        printf("Resultado: la nave ESCAPA de la gravedad terrestre.\n");
+    else if (trabajoExterno <= 0)
+        printf("Resultado: la nave LLEGA al punto de equilibrio Tierra-Luna.\n");
+    else
+        printf("Resultado: NO llega. Faltan %.3e J/kg.\n", trabajoExterno);
+    printf("===================\n");
+}
     
