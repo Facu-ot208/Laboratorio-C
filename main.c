@@ -60,9 +60,11 @@ static EstadoVuelo ejecutarViaje(const Orion *inicial, double velocidades[],
         (*turnos)++;
     }
 
-    limpiarPantalla();
-    mostrarPanelTurno(*turnos, nave.velocidad, nave.distancia,
+    if (*turnos > 0) {
+        limpiarPantalla();
+        mostrarPanelTurno(*turnos, nave.velocidad, nave.distancia,
                       DISTANCIA_TIERRA_LUNA, (int)(nave.distancia / DISTANCIA_TIERRA_LUNA * 20));
+    }
     return estado;
 }
 
