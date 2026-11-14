@@ -20,13 +20,21 @@ Pensamos el programa como una herramienta para explorar ese escenario. El usuari
 
 ### Menú principal
 Al iniciar, el programa muestra un menú. Se elige una opción escribiendo su número y presionando Enter, y al terminar cada opción se vuelve al menú.
+
 **1**.	Configurar nave Orion: el usuario decide si usa los valores del enunciado (m = 26.000 kg, v = 10.900 m/s, h = 192.000 m) o si carga valores propios. Los valores propios se validan por rango: la masa debe ser mayor que cero, la velocidad debe estar entre 1.000 y 15.000 m/s y la altura entre 100.000 y 2.000.000 m.
+
 **2**.	Apartado A: explica la ley de inercia aplicada a Orion.
+
 **3**.	Apartado B: calcula la energía cinética inicial.
+
 **4**.	Apartado C: calcula el punto de equilibrio gravitatorio y el trabajo externo mínimo por unidad de masa.
+
 **5**.	Apartado D: justifica por qué la ida a la Luna requiere más combustible que el regreso.
+
 **6**.	Simular viaje translunar: simulación por turnos.
+
 **7**.	Reporte final: resumen de la nave y del resultado de la misión.
+
 **0**.	Salir.
 
 Si el usuario no configura nada, el programa arranca con los valores del enunciado, de modo que todas las opciones funcionan desde el principio.
@@ -39,9 +47,13 @@ a(r) = −G · M_Tierra / r² + G · M_Luna / (D − r)²
 donde r es la distancia de la nave al centro de la Tierra. Con esa aceleración actualizamos posición y velocidad usando el método de Verlet de velocidad, con un paso de integración de 10 segundos. Elegimos ese método porque es de segundo orden y mantiene bien la energía en movimientos gravitatorios, y el paso de 10 s es lo bastante chico para que el resultado no cambie de forma apreciable al achicarlo.
 
 **La simulación termina cuando ocurre alguno de estos casos:**
+
 •	Llega al equilibrio: Orion alcanza el punto de equilibrio Tierra-Luna. Desde ahí domina la Luna y la nave cae hacia ella.
+
 •	Regresa a la Tierra: la velocidad llega a cero antes del punto de equilibrio. Orion se detiene y la gravedad terrestre la hace volver.
+
 •	Choca con la Tierra: la distancia queda menor que el radio terrestre. Con datos válidos este caso no debería darse, porque la nave se detiene antes de caer, pero lo dejamos como chequeo de seguridad.
+
 •	Abandono: el usuario decide salir antes de que se resuelva el viaje.
 
 Al terminar, el programa informa el resultado y muestra una tabla con la velocidad y la distancia al final de cada turno. Ese historial se guarda en arreglos, con un máximo de 200 turnos.
@@ -50,9 +62,13 @@ El resultado depende sobre todo de la velocidad de inyección. Con los 10.900 m/
 
 ### Organización del código
 Dividimos el proyecto en módulos para que cada archivo tenga una responsabilidad clara. Esto nos permitió trabajar en paralelo sin pisarnos y facilita ubicar un error.
+
 •	**main.c** tiene el menú, el ciclo principal y la lógica de cada turno de la simulación. No contiene fórmulas físicas, solo llama a las funciones de los otros módulos.
+
 •	**simulador.h y simulador.c** concentran las constantes físicas, el struct Orion, el tipo EstadoVuelo, los cálculos de los apartados y el avance de la simulación.
+
 •	**validaciones.h y validaciones.c** se encargan de leer números, enteros y opciones del teclado de forma segura.
+
 •	**interfaz.h y dibujo.c** se encargan de lo visual: limpiar la pantalla según el sistema operativo, dibujar la nave y la barra de progreso, y armar el panel de cada turno.
 
 ### Estructuras, punteros y arreglos
@@ -61,12 +77,19 @@ Usamos arreglos para guardar el historial de velocidades y distancias de cada tu
 
 ### Validaciones y manejo de errores
 No usamos scanf para leer datos, porque ante una letra deja la entrada sin consumir y puede provocar un ciclo infinito. En su lugar leemos cada línea completa como texto con fgets y la convertimos con strtod (decimales) o strtol (enteros), revisando que se haya consumido toda la línea. Con eso el programa rechaza:
+
 •	letras y texto sobrante, por ejemplo 12abc
+
 •	líneas vacías
+
 •	líneas de más de 100 caracteres
+
 •	números fuera del rango representable, nan e inf
+
 •	valores fuera del rango permitido para cada dato
+
 •	decimales donde se espera un entero, por ejemplo 3,5 en el menú
+
 Los decimales se pueden escribir con coma o con punto. Cada error muestra una advertencia con el formato [!] y el programa vuelve a pedir el dato. Si la entrada se cierra (por ejemplo con Ctrl + D), el programa termina.
 
 
@@ -74,8 +97,11 @@ Los decimales se pueden escribir con coma o con punto. Cada error muestra una ad
 El proyecto está escrito en C estándar (C99) y se compila con gcc. A continuación explicamos cómo prepararlo, compilarlo y ejecutarlo, y cómo probar sus funciones principales.
 
 ### Requisitos
+
 •	Un compilador gcc. Se puede comprobar con gcc --version.
+
 •	Opcionalmente make, que simplifica la compilación a un solo comando. Se puede comprobar con make --version.
+
 •	Una terminal. El programa limpia la pantalla entre turnos y dibuja la nave en ASCII, así que conviene ejecutarlo desde una terminal real y no desde el botón de ejecutar de un editor.
 
 En Linux y macOS, gcc y make suelen estar instalados o se instalan con el gestor de paquetes del sistema. En Windows recomendamos instalar MSYS2 (o MinGW) o usar WSL, que incluyen ambas herramientas.
