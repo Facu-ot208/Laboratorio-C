@@ -83,7 +83,7 @@ static void mostrarMenu(void) {
 }
 
 int main(void) {
-     Orion naveInicial;
+    Orion naveInicial;
     double velocidades[MAX_TURNOS];
     double distancias[MAX_TURNOS];
     int turnos = 0;
