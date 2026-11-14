@@ -159,8 +159,11 @@ void mostrarResultadoSimulacion(EstadoVuelo estado, int turnos) {
         case CHOCA_TIERRA:
             printf("Orion cayo a la Tierra (distancia menor al radio terrestre).\n");
             break;
+        case ABANDONADO:
+            printf("simulación abandonada por el usuario antes de resolverse el viaje \n");
+            break;
         default:
-            printf("La simulacion termino con la nave todavia en vuelo.\n");
+            printf("Se alcanzó el maximo de turnos con la nave todavia en vuelo \n");
     }
 }
 
