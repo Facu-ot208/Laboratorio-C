@@ -73,7 +73,7 @@ Dividimos el proyecto en módulos para que cada archivo tenga una responsabilida
 
 •	**validaciones.h y validaciones.c** se encargan de leer números, enteros y opciones del teclado de forma segura.
 
-•	**interfaz.h y dibujo.c** se encargan de lo visual: limpiar la pantalla según el sistema operativo, dibujar la nave y la barra de progreso, y armar el panel de cada turno.
+•	**interfaz.h y interfaz.c** se encargan de lo visual: limpiar la pantalla según el sistema operativo, dibujar la nave y la barra de progreso, y armar el panel de cada turno.
 
 ### Estructuras, punteros y arreglos
 Los datos de la nave se agrupan en un struct Orion con masa, velocidad, distancia al centro de la Tierra y altura. Pasamos la nave a las funciones por puntero: las que solo leen la nave la reciben como const Orion *, y las que la modifican, como avanzarTurno e inicializarNave, la reciben como Orion *. Así evitamos copiar el struct en cada llamada y dejamos en claro qué funciones pueden cambiar la nave.
@@ -108,7 +108,7 @@ make clean
 
 ### Compilación sin make
 Si no se dispone de make, el proyecto se compila con un único comando:
-**gcc -Wall -Wextra -std=c99 -g main.c simulador.c validaciones.c dibujo.c -o artemis -lm**
+**gcc -Wall -Wextra -std=c99 -g main.c simulador.c validaciones.c interfaz.c -o artemis -lm**
 
 ### Ejecución
 En Linux y macOS:
@@ -122,7 +122,7 @@ Al iniciar aparece el menú principal. Se elige una opción escribiendo su núme
 ## Registro detallado del uso de Inteligencia Artificial
 Utilizamos inteligencia artificial como apoyo durante el desarrollo del trabajo. Las usamos sobre todo para verificar  (controlar lo que íbamos construyendo)
 Cada vez que terminábamos una parte del programa, la sometíamos a revisión y notamos que la IA encontró pocos errores de sintaxis, pero sí errores de lógica, que fueron los que más nos sirvieron. 
-Cuando nos estancamos en puntos específicos, también le pedimos ayuda, para entender un concepto o para resolver un problema concreto. Esas consultas y sus respuestas figuran en la tabla de más abajo. Todo lo que se sugirió lo revisamos, lo probamos y lo adaptamos antes de incluirlo en el proyecto
+Cuando nos estancamos en puntos específicos, también le pedimos ayuda, para entender un concepto o para resolver un problema concreto. Esas consultas y sus respuestas figuran más abajo. Todo lo que se sugirió lo revisamos, lo probamos y lo adaptamos antes de incluirlo en el proyecto
 
 ### Consulta 1: archivos de cabecera y error de compilación
 • **Integrante**: Otero, Facundo
@@ -194,7 +194,7 @@ Cuando nos estancamos en puntos específicos, también le pedimos ayuda, para en
 
 • **Tarea**: revisar el proyecto completo para detectar errores antes de la entrega.
 
-• **Prompt**: Revisá en profundidad el proyecto completo adjunto (Makefile, main.c, simulador.c, simulador.h, validaciones.c, validaciones.h, dibujo.c e interfaz.h). Detectá todos los errores de sintaxis, de lógica, tomando como referencia la consigna y la rúbrica de la cátedra. Entregame todas las correcciones en un único mensaje, ordenadas por archivo y por prioridad, indicando para cada una qué cambiar, dónde y por qué.
+• **Prompt**: Revisá en profundidad el proyecto completo adjunto (Makefile, main.c, simulador.c, simulador.h, validaciones.c, validaciones.h, interfaz.c e interfaz.h). Detectá todos los errores de sintaxis, de lógica, tomando como referencia la consigna y la rúbrica de la cátedra. Entregame todas las correcciones en un único mensaje, ordenadas por archivo y por prioridad, indicando para cada una qué cambiar, dónde y por qué.
 
 • **Respuesta**: entregó una lista de correcciones: agregar (void) en los prototipos; separar el cálculo en una función nueva, calcularVariacionPotencial, para evitar código repetido; corregir pausar, que entraba en un bucle infinito si se cerraba la entrada; actualizar la altura de la nave en cada paso de avanzarTurno; agregar artemis al .gitignore y verificar que el Makefile use TAB.
 
