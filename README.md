@@ -181,7 +181,7 @@ Cuando nos estancamos en puntos específicos, también le pedimos ayuda, para en
 
 • **Tarea**: revisar una corrección propuesta por la IA.
 
-• **Prompt**: ¿Por qué tengo que cambiar cambiar mostrarAnalisisCombustible? No entiendo donde está el error.
+• **Prompt**: ¿Por qué tengo que cambiar mostrarAnalisisCombustible? No entiendo donde está el error.
 
 • **Respuesta**: reconoció que el texto que se había propuesto tenía un error de física: decía que el combustible gastado en la ida también debe ser impulsado, pero el combustible ya quemado no pesa. Lo correcto es que el combustible que todavía no se usó hay que acelerarlo junto con la nave, y por eso, según la ecuación del cohete, la masa necesaria crece exponencialmente con el delta-v. Propuso reemplazar dos líneas del printf.
 
