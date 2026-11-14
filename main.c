@@ -81,5 +81,65 @@ static void mostrarMenu(void) {
 }
 
 int main(void) {
-    
+     Orion naveInicial;
+    double velocidades[MAX_TURNOS];
+    double distancias[MAX_TURNOS];
+    int turnos = 0;
+    int opcion;
+    int simulado = 0;
+    EstadoVuelo estado = EN_VUELO;
+    double energia, trabajo;
+
+    // por defecto se cargan los datos del enunciado
+    inicializarNave(&naveInicial, MASA_ORION_ENUNCIADO, VELOCIDAD_TLI_ENUNCIADO,
+                    ALTURA_LEO_ENUNCIADO);
+    do {
+        mostrarMenu();
+        opcion = ingresarEntero("Opcion: ", 0, 7);
+
+        switch (opcion) {
+            case 1:
+                configurarNave(&naveInicial);
+                simulado = 0;
+                break;
+            case 2:
+                mostrarInercia();
+                break;
+            case 3:
+                energia = calcularEnergiaCinetica(naveInicial);
+                printf("\n--- APARTADO B: ENERGIA CINETICA INICIAL ---\n");
+                printf("Ki = 1/2 * m * v^2 = %.3e J\n", energia);
+                break;
+            case 4:
+                trabajo = calcularTrabajoExterno(naveInicial);
+                printf("\n--- APARTADO C: TRABAJO EXTERNO MINIMO ---\n");
+                printf("Punto de equilibrio Tierra-Luna: %.0f km del centro de la Tierra\n",
+                       calcularDistanciaEquilibrio() / 1000.0);
+                printf("Wext = %.3e J/kg\n", trabajo);
+                if (trabajo <= 0)
+                    printf("Negativo: la energia inicial alcanza, no hace falta trabajo extra.\n");
+                break;
+            case 5:
+                mostrarAnalisisCombustible();
+                break;
+            case 6:
+                estado = ejecutarViaje(&naveInicial, velocidades, distancias, &turnos);
+                mostrarResultadoSimulacion(estado, turnos);
+                if (turnos > 0) mostrarHistorial(velocidades, distancias, turnos);
+                simulado = 1;
+                break;
+            case 7:
+                energia = calcularEnergiaCinetica(naveInicial);
+                trabajo = calcularTrabajoExterno(naveInicial);
+                mostrarReporteFinal(&naveInicial, energia, trabajo);
+                if (simulado) mostrarResultadoSimulacion(estado, turnos);
+                break;
+            default:
+                break;
+        }
+        if (opcion != 0) pausar();
+    } while (opcion != 0);
+
+    printf("\nFin del programa. Hasta la proxima mision!\n");
+    return 0;
 }
