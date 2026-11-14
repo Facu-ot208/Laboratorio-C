@@ -30,7 +30,8 @@ typedef enum {
     EN_VUELO,
     LLEGA_EQUILIBRIO,
     REGRESA_A_TIERRA,
-    CHOCA_TIERRA
+    CHOCA_TIERRA,
+    ABANDONADO
 } EstadoVuelo;
 
 // declaración de las funciones
