@@ -20,11 +20,11 @@ void mostrarInercia(void) {
 }
 
 // apartado B: calculo de energia cinetica
-double calcularEnergiaCinetica(Orion nave) {
+double calcularEnergiaCinetica(const Orion *nave) {
 
-    double energia; // energia: alamcena el resultado
+    double energia; // energia: almacena el resultado
 
-    energia = 0.5 * nave.masa * nave.velocidad * nave.velocidad;
+    energia = 0.5 * nave->masa * nave->velocidad * nave->velocidad;
 
     return energia; //devuelve el resultado al programa principal
 }
