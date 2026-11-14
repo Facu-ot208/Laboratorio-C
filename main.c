@@ -5,8 +5,9 @@
 
 // espera que el usuario presione Enter
 static void pausar(void) {
+    int c;
     printf("\nPresione Enter para continuar...");
-    while (getchar() != '\n');
+    while ((c = getchar()) != '\n' && c != EOF);
 }
 
 // Carga los datos de la nave: ingresados por el usuario o los del enunciado
