@@ -78,8 +78,6 @@ static void mostrarMenu(void) {
     printf(" 7. Reporte final\n");
     printf(" 0. Salir\n");
 }
-    return 0;
-}
 
 int main(void) {
      Orion naveInicial;
