@@ -77,23 +77,6 @@ Dividimos el proyecto en módulos para que cada archivo tenga una responsabilida
 Los datos de la nave se agrupan en un struct Orion con masa, velocidad, distancia al centro de la Tierra y altura. Pasamos la nave a las funciones por puntero: las que solo leen la nave la reciben como const Orion *, y las que la modifican, como avanzarTurno e inicializarNave, la reciben como Orion *. Así evitamos copiar el struct en cada llamada y dejamos en claro qué funciones pueden cambiar la nave.
 Usamos arreglos para guardar el historial de velocidades y distancias de cada turno, y los recorremos con ciclos para armar la tabla final. El estado de la simulación se representa con un enum, lo que vuelve más legible el switch que muestra el resultado.
 
-### Validaciones y manejo de errores
-No usamos scanf para leer datos, porque ante una letra deja la entrada sin consumir y puede provocar un ciclo infinito. En su lugar leemos cada línea completa como texto con fgets y la convertimos con strtod (decimales) o strtol (enteros), revisando que se haya consumido toda la línea. Con eso el programa rechaza:
-
-•	letras y texto sobrante, por ejemplo 12abc
-
-•	líneas vacías
-
-•	líneas de más de 100 caracteres
-
-•	números fuera del rango representable, nan e inf
-
-•	valores fuera del rango permitido para cada dato
-
-•	decimales donde se espera un entero, por ejemplo 3,5 en el menú
-
-Los decimales se pueden escribir con coma o con punto. Cada error muestra una advertencia con el formato [!] y el programa vuelve a pedir el dato. Si la entrada se cierra (por ejemplo con Ctrl + D), el programa termina.
-
 
 ## Instrucciones claras de complicación y ejecución
 El proyecto está escrito en C estándar (C99) y se compila con gcc. A continuación explicamos cómo prepararlo, compilarlo y ejecutarlo, y cómo probar sus funciones principales.
