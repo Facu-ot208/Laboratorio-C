@@ -34,9 +34,10 @@ typedef enum {
 } EstadoVuelo;
 
 // declaración de las funciones
-void mostrarInercia();
-double calcularEnergiaCinetica(Orion nave);
-double calcularTrabajoExterno(Orion nave);
+void mostrarInercia(void);
+double calcularEnergiaCinetica(const Orion *nave);
+double calcularVariacionPotencial(const Orion *nave);
+double calcularTrabajoExterno(const Orion *nave);
 double calcularDistanciaEquilibrio(void);
 void inicializarNave(Orion *nave, double masa, double velocidad, double altura);
 EstadoVuelo avanzarTurno(Orion *nave, double segundos);
