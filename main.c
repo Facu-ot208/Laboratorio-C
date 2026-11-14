@@ -2,9 +2,12 @@
 #include "simulador.h"
 #include "validaciones.h"
 
-int main() {
+// espera que el usuario presione Enter
+static void pausar(void) {
+    printf("\nPresione Enter para continuar...");
+    while (getchar() != '\n');
+}
 
-    
 // Carga los datos de la nave: ingresados por el usuario o los del enunciado
 static void configurarNave(Orion *nave) {
     double masa, velocidad, altura;
@@ -75,4 +78,8 @@ static void mostrarMenu(void) {
     printf(" 0. Salir\n");
 }
     return 0;
+}
+
+int main(void) {
+    
 }
