@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "simulador.h"
 #include "validaciones.h"
+#include "interfaz.h"
 
 // espera que el usuario presione Enter
 static void pausar(void) {
