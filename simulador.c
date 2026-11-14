@@ -5,7 +5,7 @@
 #include "simulador.h" //permite utilizar las constantes, estructuras y prototipos que definimos
 
 // con la siguiente funcion nos muestra la explicacion fisica del apartado A, ley de inercia
-void mostrarInercia() {
+void mostrarInercia(void) {
 
     printf("\n Apartado A: LEY DE INERCIA \n");
 
