@@ -134,13 +134,14 @@ EstadoVuelo avanzarTurno(Orion *nave, double segundos) {
 
         nave->distancia += nave->velocidad * dt + 0.5 * a0 * dt * dt;
         nave->velocidad += 0.5 * (a0 + aceleracion(nave->distancia)) * dt;
+        nave->altura = nave->distancia - RADIO_TIERRA;
         restante -= dt;
 
-        if (nave->distancia >= rEq)            return LLEGA_EQUILIBRIO;
-        if (nave->distancia <= RADIO_TIERRA)   return CHOCA_TIERRA;
-        if (nave->velocidad <= 0.0)            return REGRESA_A_TIERRA;
+        if (nave->distancia >= rEq) return LLEGA_EQUILIBRIO;
+        // chequeo de seguridad: con los datos validados no deberia ocurrir
+        if (nave->distancia <= RADIO_TIERRA) return CHOCA_TIERRA;
+        if (nave->velocidad <= 0.0) return REGRESA_A_TIERRA;
     }
-    nave->altura = nave->distancia - RADIO_TIERRA;
     return EN_VUELO;
 }
 
