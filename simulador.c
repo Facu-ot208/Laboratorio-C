@@ -140,7 +140,7 @@ EstadoVuelo avanzarTurno(Orion *nave, double segundos) {
         if (nave->distancia >= rEq) return LLEGA_EQUILIBRIO;
         // chequeo de seguridad: con los datos validados no deberia ocurrir
         if (nave->distancia <= RADIO_TIERRA) return CHOCA_TIERRA;
-        if (nave->velocidad <= 0.0) return REGRESA_A_TIERRA;
+        if (nave->velocidad <= 0.0) { nave->velocidad = 0.0; return REGRESA_A_TIERRA;
     }
     return EN_VUELO;
 }
