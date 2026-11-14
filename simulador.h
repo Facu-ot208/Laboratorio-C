@@ -33,10 +33,16 @@ typedef enum {
     CHOCA_TIERRA
 } EstadoVuelo;
 
-// Prototipos de las funciones
+// declaración de las funciones
 void mostrarInercia();
 double calcularEnergiaCinetica(Orion nave);
 double calcularTrabajoExterno(Orion nave);
+double calcularDistanciaEquilibrio(void);
+void inicializarNave(Orion *nave, double masa, double velocidad, double altura);
+EstadoVuelo avanzarTurno(Orion *nave, double segundos);
+void mostrarResultadoSimulacion(EstadoVuelo estado, int turnos);
+void mostrarHistorial(const double velocidades[], const double distancias[],
+                      int cantidad);
 void mostrarAnalisisCombustible(void);
 void mostrarReporteFinal(const Orion *nave, double energiaCinetica,
                          double trabajoExterno);
