@@ -106,16 +106,18 @@ int main(void) {
                 mostrarInercia();
                 break;
             case 3:
-                energia = calcularEnergiaCinetica(naveInicial);
+                energia = calcularEnergiaCinetica(&naveInicial);
                 printf("\n--- APARTADO B: ENERGIA CINETICA INICIAL ---\n");
                 printf("Ki = 1/2 * m * v^2 = %.3e J\n", energia);
                 break;
             case 4:
-                trabajo = calcularTrabajoExterno(naveInicial);
                 printf("\n--- APARTADO C: TRABAJO EXTERNO MINIMO ---\n");
                 printf("Punto de equilibrio Tierra-Luna: %.0f km del centro de la Tierra\n",
                        calcularDistanciaEquilibrio() / 1000.0);
-                printf("Wext = %.3e J/kg\n", trabajo);
+                printf("Variacion de energia potencial: %.3e J/kg\n",
+                       calcularVariacionPotencial(&naveInicial));
+                trabajo = calcularTrabajoExterno(&naveInicial);
+                printf("Wext (descontando la cinetica inicial) = %.3e J/kg\n", trabajo);
                 if (trabajo <= 0)
                     printf("Negativo: la energia inicial alcanza, no hace falta trabajo extra.\n");
                 break;
@@ -129,8 +131,8 @@ int main(void) {
                 simulado = 1;
                 break;
             case 7:
-                energia = calcularEnergiaCinetica(naveInicial);
-                trabajo = calcularTrabajoExterno(naveInicial);
+                energia = calcularEnergiaCinetica(&naveInicial);
+                trabajo = calcularTrabajoExterno(&naveInicial);
                 mostrarReporteFinal(&naveInicial, energia, trabajo);
                 if (simulado) mostrarResultadoSimulacion(estado, turnos);
                 break;
