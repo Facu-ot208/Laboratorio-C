@@ -24,6 +24,7 @@ static int leerLinea(char *buf, int tam) {
     }
     if (strchr(buf, '\n') == NULL) {
         int c;
+        if (feof(stdin)) return 1;
         while ((c = getchar()) != '\n' && c != EOF);
         return 0;
     }
