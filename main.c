@@ -51,7 +51,7 @@ static EstadoVuelo ejecutarViaje(const Orion *inicial, double velocidades[],
                           DISTANCIA_TIERRA_LUNA, (int)(nave.distancia / DISTANCIA_TIERRA_LUNA * 20));
 
         opcion = ingresarOpcion("[A] Avanzar turno  [S] Abandonar simulacion: ", "AS");
-        if (opcion == 'S') break { estado = ABANDONADO; break; }
+        if (opcion == 'S') { estado = ABANDONADO; break; }
         horas = ingresarDoubleRango("Horas a avanzar en este turno (0.5 a 48): ", 0.5, 48.0);
 
         estado = avanzarTurno(&nave, horas * 3600.0);
