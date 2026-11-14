@@ -61,5 +61,18 @@ static EstadoVuelo ejecutarViaje(const Orion *inicial, double velocidades[],
     return estado;
 }
 
+static void mostrarMenu(void) {
+    printf("\n==============================================\n");
+    printf("   ARTEMIS: INYECCION TRANSLUNAR\n");
+    printf("==============================================\n");
+    printf(" 1. Configurar nave Orion\n");
+    printf(" 2. Apartado A: ley de inercia\n");
+    printf(" 3. Apartado B: energia cinetica inicial\n");
+    printf(" 4. Apartado C: trabajo externo minimo\n");
+    printf(" 5. Apartado D: combustible ida vs regreso\n");
+    printf(" 6. Simular viaje translunar (por turnos)\n");
+    printf(" 7. Reporte final\n");
+    printf(" 0. Salir\n");
+}
     return 0;
 }
