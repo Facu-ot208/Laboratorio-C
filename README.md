@@ -17,5 +17,41 @@ La simulación avanza por turnos. En cada uno el usuario elige avanzar (A) o aba
 
 
 ## Instrucciones claras de complicación y ejecución
+El proyecto está escrito en C estándar (C99) y se compila con gcc. A continuación explicamos cómo prepararlo, compilarlo y ejecutarlo, y cómo probar sus funciones principales.
 
-## Registro detallado del uso de Inteligencia Artificial
+### Requisitos
+•	Un compilador gcc. Se puede comprobar con gcc --version.
+•	Opcionalmente make, que simplifica la compilación a un solo comando. Se puede comprobar con make --version.
+•	Una terminal. El programa limpia la pantalla entre turnos y dibuja la nave en ASCII, así que conviene ejecutarlo desde una terminal real y no desde el botón de ejecutar de un editor.
+
+En Linux y macOS, gcc y make suelen estar instalados o se instalan con el gestor de paquetes del sistema. En Windows recomendamos instalar MSYS2 (o MinGW) o usar WSL, que incluyen ambas herramientas.
+
+### Obtener el código
+Si todavía no se tiene el repositorio, se clona con:
+**git clone https://github.com/Facu-ot208/Laboratorio-C.git
+cd Laboratorio-C**
+Todos los comandos siguientes se ejecutan desde esa carpeta.
+
+### Compilación con make
+Es la forma más simple. Desde la carpeta raíz:
+**make**
+El Makefile compila cada archivo .c por separado y los une en un ejecutable llamado artemis. Compila con las opciones -Wall -Wextra -std=c99 -g, que activan las advertencias del compilador y el estándar C99. La compilación no tiene que mostrar errores ni advertencias.
+Para borrar los archivos generados:
+make clean
+
+### Compilación sin make
+Si no se dispone de make, el proyecto se compila con un único comando:
+**gcc -Wall -Wextra -std=c99 -g main.c simulador.c validaciones.c dibujo.c -o artemis -lm**
+
+### Ejecución
+En Linux y macOS:
+**./artemis**
+En Windows:
+**artemis.exe**
+
+Al iniciar aparece el menú principal. Se elige una opción escribiendo su número y presionando Enter. Después de cada opción, el programa pide presionar Enter para volver al menú. Para terminar se elige la opción 0.
+
+### Registro detallado del uso de Inteligencia Artificial
+Utilizamos inteligencia artificial como apoyo durante el desarrollo del trabajo. Las usamos sobre todo para verificar  (controlar lo que íbamos construyendo)
+Cada vez que terminábamos una parte del programa, la sometíamos a revisión y notamos que la IA encontró pocos errores de sintaxis, pero sí errores de lógica, que fueron los que más nos sirvieron. Por ejemplo, detectó un ciclo infonito si se cerraba la entrada del programa, algo que nosotros no tomamos en cuenta.
+Cuando nos estancamos en puntos específicos, también le pedimos ayuda, para entender un concepto o para resolver un problema concreto. Esas consultas y sus respuestas figuran en la tabla de más abajo. Todo lo que se sugirió lo revisamos, lo probamos y lo adaptamos antes de incluirlo en el proyecto
