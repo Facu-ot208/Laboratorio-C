@@ -140,7 +140,10 @@ EstadoVuelo avanzarTurno(Orion *nave, double segundos) {
         if (nave->distancia >= rEq) return LLEGA_EQUILIBRIO;
         // chequeo de seguridad: con los datos validados no deberia ocurrir
         if (nave->distancia <= RADIO_TIERRA) return CHOCA_TIERRA;
-        if (nave->velocidad <= 0.0) { nave->velocidad = 0.0; return REGRESA_A_TIERRA;
+        if (nave->velocidad <= 0.0) { 
+            nave->velocidad = 0.0; 
+            return REGRESA_A_TIERRA;
+        }
     }
     return EN_VUELO;
 }
@@ -160,10 +163,10 @@ void mostrarResultadoSimulacion(EstadoVuelo estado, int turnos) {
             printf("Orion cayo a la Tierra (distancia menor al radio terrestre).\n");
             break;
         case ABANDONADO:
-            printf("simulación abandonada por el usuario antes de resolverse el viaje \n");
+            printf("simulacion abandonada por el usuario antes de resolverse el viaje \n");
             break;
         default:
-            printf("Se alcanzó el maximo de turnos con la nave todavia en vuelo \n");
+            printf("Se alcanzo el maximo de turnos con la nave todavia en vuelo \n");
     }
 }
 
