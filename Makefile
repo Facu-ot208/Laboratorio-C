@@ -10,7 +10,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
   $(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
 
-%.o: %.c simulador.h validaciones.h
+%.o: %.c simulador.h validaciones.h interfaz.h
   $(CC) $(CFLAGS) -c $< -o $@
 
 clean:
