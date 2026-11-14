@@ -4,6 +4,7 @@
 
 int main() {
 
+    
 // Carga los datos de la nave: ingresados por el usuario o los del enunciado
 static void configurarNave(Orion *nave) {
     double masa, velocidad, altura;
@@ -29,6 +30,36 @@ static void configurarNave(Orion *nave) {
     printf("\nNave configurada correctamente.\n");
 }
 
+// Ciclo por turnos del viaje translunar. Cada turno el usuario elige cuantas horas
+// avanzar y se actualiza la nave por puntero. Guarda el historial en los arreglos.
+static EstadoVuelo ejecutarViaje(const Orion *inicial, double velocidades[],
+                                 double distancias[], int *turnos) {
+    Orion nave = *inicial;
+    EstadoVuelo estado = EN_VUELO;
+    double horas;
+    char opcion;
+
+    *turnos = 0;
+    while (estado == EN_VUELO && *turnos < MAX_TURNOS) {
+        limpiarPantalla();
+        mostrarPanelTurno(*turnos + 1, nave.velocidad, nave.distancia,
+                          DISTANCIA_TIERRA_LUNA, (int)(nave.distancia / DISTANCIA_TIERRA_LUNA * 20));
+
+        opcion = ingresarOpcion("[A] Avanzar turno  [S] Abandonar simulacion: ", "AS");
+        if (opcion == 'S') break;
+        horas = ingresarDoubleRango("Horas a avanzar en este turno (0.5 a 48): ", 0.5, 48.0);
+
+        estado = avanzarTurno(&nave, horas * 3600.0);
+        velocidades[*turnos] = nave.velocidad;
+        distancias[*turnos] = nave.distancia;
+        (*turnos)++;
+    }
+
+    limpiarPantalla();
+    mostrarPanelTurno(*turnos, nave.velocidad, nave.distancia,
+                      DISTANCIA_TIERRA_LUNA, (int)(nave.distancia / DISTANCIA_TIERRA_LUNA * 20));
+    return estado;
+}
 
     return 0;
 }
