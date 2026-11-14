@@ -69,11 +69,13 @@ double calcularTrabajoExterno(Orion nave) {
 
 // apartado D: comparacion energetica ida (Tierra-Luna) vs regreso (Luna-Tierra)
 void mostrarAnalisisCombustible(void) {
-    printf("\n--- APARTADO D: IDA (Tierra-Luna) vs regreso (Luna-Tierra) ---\n");
-    printf("La tierra tiene mucha más masa que la luna (unas 81 veces), \n");
+    printf("\n--- APARTADO D: IDA (Tierra-Luna) vs REGRESO (Luna-Tierra) ---\n");
+    printf("La Tierra tiene mucha mas masa que la Luna (unas 81 veces),\n");
     printf("por eso su pozo de potencial gravitatorio es mucho mas profundo.\n\n");
-    printf("Velocidad de escape desde la Tierra: aprox. 11,2 km/s\n");
-    printf("Velocidad de escape desde la Luna:   aprox. 2,4 km/s\n\n");
+    printf("Velocidad de escape desde la superficie de la Tierra: aprox. 11,2 km/s\n");
+    printf("Velocidad de escape desde la superficie de la Luna:   aprox. 2,4 km/s\n");
+    printf("Energia por unidad de masa (v^2 / 2): Tierra aprox. 6,3e7 J/kg,\n");
+    printf("Luna aprox. 2,9e6 J/kg. Salir de la Tierra cuesta unas 22 veces mas.\n\n");
     printf("Ir a la Luna implica salir del pozo terrestre: hace falta mucha\n");
     printf("energia (delta-v alto), y por lo tanto mucho combustible.\n");
     printf("Volver implica salir del pozo lunar, que es poco profundo, y luego\n");
