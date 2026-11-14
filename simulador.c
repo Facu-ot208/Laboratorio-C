@@ -31,7 +31,7 @@ double calcularEnergiaCinetica(const Orion *nave) {
 
 // apartado C: calculamos la distancia hasta el punto de equilibrio gravitatorio por las masas 
 // y el calculo del trabajo externo por unidad de masa
-double calcularDistanciaEquilibrio() {
+double calcularDistanciaEquilibrio(void) {
 
     double distancia;
     distancia = DISTANCIA_TIERRA_LUNA / 
@@ -39,32 +39,29 @@ double calcularDistanciaEquilibrio() {
     return distancia;
 }
 
-double calcularTrabajoExterno(Orion nave) {
+// variacion de energia potencial por unidad de masa:
+// desde la orbita baja hasta el punto de equilibrio Tierra-Luna
+double calcularVariacionPotencial(const Orion *nave) {
+    double distanciaEquilibrio = calcularDistanciaEquilibrio();
+    double distanciaInicial = RADIO_TIERRA + nave->altura;
 
-    double distanciaEquilibrio;
-    double distanciaInicial;
-    double potencialInicial;
-    double potencialFinal;
-    double energiaCineticaInicial;
-    double trabajoExterno;
+    double potencialInicial =
+        -(G * MASA_TIERRA / distanciaInicial)
+        -(G * MASA_LUNA / (DISTANCIA_TIERRA_LUNA - distanciaInicial));
 
-    distanciaEquilibrio = calcularDistanciaEquilibrio();
-
-    distanciaInicial = RADIO_TIERRA + nave.altura;
-
-    potencialInicial = // energia potencial gravitatoria por unidad de masa al comenzar
-        -(G * MASA_TIERRA / distanciaInicial) // atraccion gravitatoria de la tierra
-        -(G * MASA_LUNA / (DISTANCIA_TIERRA_LUNA - distanciaInicial)); // atraccion gravitatoria de la luna
-
-    potencialFinal = // energia potencial gravitatoria por unidad de masa en el punto de equilibrio
+    double potencialFinal =
         -(G * MASA_TIERRA / distanciaEquilibrio)
         -(G * MASA_LUNA / (DISTANCIA_TIERRA_LUNA - distanciaEquilibrio));
 
-    energiaCineticaInicial = 0.5 * nave.velocidad * nave.velocidad;
+    return potencialFinal - potencialInicial;
+}
 
-    trabajoExterno = potencialFinal - potencialInicial - energiaCineticaInicial;
-    // en este ultimo, se supone que orion llega al punto de equilibrio con velodiad final cero
-    return trabajoExterno;
+// trabajo externo minimo por unidad de masa, descontando la cinetica inicial.
+// Se supone que Orion llega al punto de equilibrio con velocidad final cero.
+// Puede ser negativo: significa que la energia inicial alcanza.
+double calcularTrabajoExterno(const Orion *nave) {
+    double cineticaPorMasa = 0.5 * nave->velocidad * nave->velocidad;
+    return calcularVariacionPotencial(nave) - cineticaPorMasa;
 }
 
 // apartado D: comparacion energetica ida (Tierra-Luna) vs regreso (Luna-Tierra)
