@@ -119,7 +119,83 @@ En Windows:
 
 Al iniciar aparece el menú principal. Se elige una opción escribiendo su número y presionando Enter. Después de cada opción, el programa pide presionar Enter para volver al menú. Para terminar se elige la opción 0.
 
-### Registro detallado del uso de Inteligencia Artificial
+## Registro detallado del uso de Inteligencia Artificial
 Utilizamos inteligencia artificial como apoyo durante el desarrollo del trabajo. Las usamos sobre todo para verificar  (controlar lo que íbamos construyendo)
-Cada vez que terminábamos una parte del programa, la sometíamos a revisión y notamos que la IA encontró pocos errores de sintaxis, pero sí errores de lógica, que fueron los que más nos sirvieron. Por ejemplo, detectó un ciclo infonito si se cerraba la entrada del programa, algo que nosotros no tomamos en cuenta.
+Cada vez que terminábamos una parte del programa, la sometíamos a revisión y notamos que la IA encontró pocos errores de sintaxis, pero sí errores de lógica, que fueron los que más nos sirvieron. 
 Cuando nos estancamos en puntos específicos, también le pedimos ayuda, para entender un concepto o para resolver un problema concreto. Esas consultas y sus respuestas figuran en la tabla de más abajo. Todo lo que se sugirió lo revisamos, lo probamos y lo adaptamos antes de incluirlo en el proyecto
+
+### Consulta 1: archivos de cabecera y error de compilación
+• **Integrante**: Otero, Facundo
+
+• **Herramienta**: Claude IA
+
+• **Tarea**: entender qué es un archivo .h, qué relación tiene con main y resolver un error al compilar.
+
+• **Prompt**: que es la extensión .h; me explicas que relacion tienen main con el archivo de cabecera?; cc1.exe: fatal error: prueba.c: No such file or directory, compilation terminated, al compilar me aparece ese error.
+
+• **Respuesta**: explicó que los archivos .h son de cabecera y contienen declaraciones (prototipos, constantes y tipos), no el código que hace el trabajo. Aclaró que main no tiene una relación especial con ellos: la relación aparece cuando main usa funciones definidas en otro archivo, porque el #include le da al compilador el prototipo, el .c se compila por separado y el enlazador une las piezas, por lo que hay que compilar todos los .c juntos. Sobre el error, indicó que gcc no encontraba prueba.c en la carpeta actual y propuso revisar la ubicación con pwd y ls, el nombre exacto del archivo (por ejemplo, una extensión .txt oculta) y volver a compilar desde la carpeta correcta.
+
+### Consulta 2: entradas erróneas que debe rechazar el programa
+• **Integrante**: Muñoa, Eugenia
+
+• **Herramienta**: Claude IA
+
+• **Tarea**: definir qué validaciones necesitaba el programa.
+
+• **Prompt**: ¿Qué tipo de entradas erróneas tendría que poder verificar y rechazar el programa?
+
+• **Respuesta**: indicó tres clases de entradas a rechazar: de tipo (letras donde va un número, texto mezclado como 12abc, líneas vacías y opciones inexistentes), de rango (valores fuera de los límites permitidos) y especiales (nan, inf, números enormes, líneas demasiado largas y cierre de la entrada). En todos los casos, el programa debe avisar del error y volver a pedir el dato sin colgarse.
+
+• Cómo lo validamos: esas clases de error se implementaron en validaciones.c.
+
+### Consulta 3: fgets con strtod o scanf
+• **Integrante**: Muñoa, Eugenia
+
+• **Herramienta**: Claude IA
+
+• **Tarea**: decidir cómo leer los datos del usuario.
+
+• **Prompt**: Según la consigna, ¿qué conviene más: leer con fgets y convertir después con strtod, o usar scanf directamente, teniendo en cuenta las validaciones de nuestro programa?
+
+• **Respuesta**: recomendó fgets con strtod, porque separa la lectura de la conversión y permite revisar cada paso. Con scanf, una letra deja el texto sin leer en el buffer y puede provocar un bucle infinito; además acepta 12abc como 12, acepta nan e inf, y con 10,9 lee solo el 10. Con fgets se lee la línea completa, y strtod informa hasta dónde convirtió, así se detectan líneas vacías, texto sobrante y valores especiales antes de comprobar el rango.
+
+• Cómo lo validamos: adoptamos esa solución en todo el programa. Las lecturas pasan por funciones de validaciones.c basadas en fgets, strtod y strtol.
+
+### Consulta 4: línea de la velocidad de escape
+• **Integrante**: Muzzupappa, Nahir
+
+• **Herramienta**: Claude IA
+
+• **Tarea**: entender una línea de mostrarReporteFinal antes de defenderla.
+
+• **Prompt**: En double vEscape = sqrt(2.0 * G * MASA_TIERRA / (RADIO_TIERRA + nave->altura)); puse un salto de linea antes de terminar el calculo, ¿Ese salto afecta?
+
+• **Respuesta**: explicó que en C el salto de línea no importa, porque una instrucción termina en el punto y coma, y que la línea se puede partir solo para que se lea mejor. 
+
+• Cómo lo validamos: el código se incluyó en mostrarReporteFinal y el programa compila y se ejecuta sin errores.
+
+### Consulta 5: error en el texto del apartado D
+• **Integrante**: Muzzupappa, Nahir
+
+• **Herramienta**: Claude IA
+
+• **Tarea**: revisar una corrección propuesta por la IA.
+
+• **Prompt**: ¿Por qué tengo que cambiar cambiar mostrarAnalisisCombustible? No entiendo donde está el error.
+
+• **Respuesta**: reconoció que el texto que se había propuesto tenía un error de física: decía que el combustible gastado en la ida también debe ser impulsado, pero el combustible ya quemado no pesa. Lo correcto es que el combustible que todavía no se usó hay que acelerarlo junto con la nave, y por eso, según la ecuación del cohete, la masa necesaria crece exponencialmente con el delta-v. Propuso reemplazar dos líneas del printf.
+
+• Cómo lo validamos: revisamos el razonamiento con la ecuación del cohete antes de aceptarlo, reemplazamos las dos líneas en simulador.c y lo registramos en el commit Corrige frase del combustible en apartado d.
+
+### Consulta 6: revisión completa del código
+• **Integrante**: Muzzupappa, Nahir
+
+• **Herramienta**: Claude IA
+
+• **Tarea**: revisar el proyecto completo para detectar errores antes de la entrega.
+
+• **Prompt**: Revisá en profundidad el proyecto completo adjunto (Makefile, main.c, simulador.c, simulador.h, validaciones.c, validaciones.h, dibujo.c e interfaz.h). Detectá todos los errores de sintaxis, de lógica, tomando como referencia la consigna y la rúbrica de la cátedra. Entregame todas las correcciones en un único mensaje, ordenadas por archivo y por prioridad, indicando para cada una qué cambiar, dónde y por qué.
+
+• **Respuesta**: entregó una lista de correcciones: agregar (void) en los prototipos; separar el cálculo en una función nueva, calcularVariacionPotencial, para evitar código repetido; corregir pausar, que entraba en un bucle infinito si se cerraba la entrada; actualizar la altura de la nave en cada paso de avanzarTurno; agregar artemis al .gitignore y verificar que el Makefile use TAB.
+
+• Cómo lo validamos: aplicamos las correcciones en los archivos indicados y volvimos a compilar y ejecutar el programa.
